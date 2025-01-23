@@ -1,5 +1,6 @@
 package core;
 
+import data.Account;
 import estorePojo.exceptions.InsufficientBalanceException;
 import estorePojo.exceptions.UnknownAccountException;
 

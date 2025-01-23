@@ -1,4 +1,6 @@
-package core;
+package data;
+
+import core.Provider;
 
 public class ItemInStock {
 
