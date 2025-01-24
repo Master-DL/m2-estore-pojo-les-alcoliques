@@ -5,22 +5,26 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+	import bridge.BankBridge;
+	import bridge.ProviderBridge;
+	import bridge.StoreBridge;
 	import data.Cart;
 	import data.ItemInStock;
+	import data.Order;
 	import estorePojo.exceptions.InsufficientBalanceException;
 import estorePojo.exceptions.InvalidCartException;
 import estorePojo.exceptions.UnknownAccountException;
 import estorePojo.exceptions.UnknownItemException;
 
-public class Store {
+public class StoreImpl implements StoreBridge {
 
-	    private Provider provider;
-	    private Bank bank;
+	    private ProviderBridge provider;
+	    private BankBridge bank;
 
 	    /**
 	     * Constructs a new StoreImpl
 	     */
-	    public Store(Provider prov, Bank bk) {
+	    public StoreImpl(ProviderBridge prov, BankBridge bk) {
 	        provider = prov;
 	        bank = bk;
 	    }
@@ -30,6 +34,7 @@ public class Store {
 	     * @return      the price of a given item
 	     * @throws UnknownItemException
 	     */
+		@Override
 	    public double getPrice( Object item ) throws UnknownItemException {
 	        return provider.getPrice(item);
 	    }
@@ -42,6 +47,7 @@ public class Store {
 	     *      directly from the store
 	     *      i.e. without having to re-order it from the provider
 	     */
+		@Override
 	    public boolean isAvailable( Object item, int qty )
 	    throws UnknownItemException {
 	        
@@ -73,6 +79,7 @@ public class Store {
 	     * @throws MismatchClientCartException
 	     *      if the given client does not own the given cart
 	     */
+		@Override
 	    public Cart addItemToCart(
 	            Cart cart,
 	            Client client,
@@ -106,7 +113,8 @@ public class Store {
 	     * 
 	     * @throws UnknownItemException
 	     */
-	    public Order pay( Cart cart, String address, String bankAccountRef )
+		@Override
+	    public Order pay(Cart cart, String address, String bankAccountRef )
 	    throws
 	    InvalidCartException, UnknownItemException,
 	    InsufficientBalanceException, UnknownAccountException {
@@ -168,6 +176,7 @@ public class Store {
 	     * @throws InsufficientBalanceException
 	     * @throws UnknownAccountException
 	     */
+		@Override
 	    public Order oneShotOrder(
 	            Client client,
 	            Object item,

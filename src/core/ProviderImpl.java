@@ -3,16 +3,17 @@ package core;
 import java.util.HashMap;
 import java.util.Map;
 
+import bridge.ProviderBridge;
 import estorePojo.exceptions.UnknownItemException;
 
-public class Provider {
+public class ProviderImpl implements ProviderBridge {
 
 	private Map<String, Double> itemPrices = new HashMap<>();
 
 	/**
 	 * Constructs a new ProviderImpl
 	 */
-	public Provider() {
+	public ProviderImpl() {
 		itemPrices.put("CD", 15d);
 		itemPrices.put("DVD", 20d);
 	}
@@ -23,6 +24,7 @@ public class Provider {
 	 * @param item
 	 * @return
 	 */
+	@Override
 	public double getPrice(Object item) throws UnknownItemException {
 
 		if (!itemPrices.containsKey(item))
@@ -36,12 +38,13 @@ public class Provider {
 	 * Emit an order for items. The provider returns the delay for delivering the
 	 * items.
 	 * 
-	 * @param store the store that emits the order
+	 * @param storeImpl the store that emits the order
 	 * @param item  the item ordered
 	 * @param qty   the quantity ordered
 	 * @return the delay (in hours)
 	 */
-	public int order(Store store, Object item, int qty) throws UnknownItemException {
+	@Override
+	public int order(StoreImpl storeImpl, Object item, int qty) throws UnknownItemException {
 
 		if (!itemPrices.containsKey(item))
 			throw new UnknownItemException("Item " + item + " is not an item delivered by this provider.");

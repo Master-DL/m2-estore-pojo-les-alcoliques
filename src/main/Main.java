@@ -1,17 +1,20 @@
 package main;
 
-import core.Bank;
+import bridge.BankBridge;
+import bridge.ProviderBridge;
+import bridge.StoreBridge;
+import core.BankImpl;
 import core.Client;
-import core.Provider;
-import core.Store;
+import core.ProviderImpl;
+import core.StoreImpl;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Provider prov = new Provider();
-		Bank bank = new Bank();
-		Store store = new Store(prov,bank);
-		Client cl = new Client(store);
+		ProviderBridge prov = new ProviderImpl();
+		BankBridge bank = new BankImpl();
+		StoreBridge storeImpl = new StoreImpl(prov,bank);
+		Client cl = new Client(storeImpl);
 		
 		cl.run();
 

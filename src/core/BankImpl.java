@@ -1,15 +1,16 @@
 package core;
 
+import bridge.BankBridge;
 import data.Account;
 import estorePojo.exceptions.InsufficientBalanceException;
 import estorePojo.exceptions.UnknownAccountException;
 
-public class Bank {
+public class BankImpl implements BankBridge {
 
 	private Account estore;
 	private Account anne, bob;
 
-	public Bank() {
+	public BankImpl() {
 		estore = new Account();
 		anne = new Account();
 		bob = new Account();
@@ -22,6 +23,7 @@ public class Bank {
 		bob.setAmount(100);
 	}
 
+	@Override
 	public void transfert(String from, String to, double amount)
 			throws InsufficientBalanceException, UnknownAccountException {
 		Account Afrom = null, Ato = null;
